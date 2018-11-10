@@ -36,14 +36,15 @@ class ProdLDA(nn.Module):
         if ac.init_mult != 0:
             #std = 1. / math.sqrt( ac.init_mult * (ac.num_topic + ac.num_input))
             self.decoder.weight.data.uniform_(0, ac.init_mult)
-        # remove BN's scale parameters
-        self.logvar_bn .register_parameter('weight', None)
-        self.mean_bn   .register_parameter('weight', None)
-        self.decoder_bn.register_parameter('weight', None)
-        self.decoder_bn.register_parameter('weight', None)
+#         # remove BN's scale parameters
+#         self.logvar_bn .register_parameter('weight', None)
+#         self.mean_bn   .register_parameter('weight', None)
+#         self.decoder_bn.register_parameter('weight', None)
+#         self.decoder_bn.register_parameter('weight', None)
 
     def forward(self, input, compute_loss=False, avg_loss=True):
         # compute posterior
+#         print("input (in forward pass) shape is " + str(input.shape))
         en1 = F.softplus(self.en1_fc(input))                            # en1_fc   output
         en2 = F.softplus(self.en2_fc(en1))                              # encoder2 output
         en2 = self.en2_drop(en2)
